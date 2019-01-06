@@ -1,13 +1,16 @@
-
+import csv
+import sys
 
 #Create main execution sub
 #parameters: Analytics engine, datasource, targetfields, includedfields, model key
 
 
-if __name__ = '__main__':
-    main()
 
-def main(AnalyticsEngine, DataSource, TargetFields, IncludedFields, ModelKey):
+#def main(AnalyticsEngine, DataSource, TargetFields, IncludedFields, ModelKey):
+
+def main(DataSource):
+
+    
 
     #Eventual HyperHyperparameters
     #NumberOfFolds = 5
@@ -18,7 +21,15 @@ def main(AnalyticsEngine, DataSource, TargetFields, IncludedFields, ModelKey):
 
 
     #Generate Dataset from CSV
-
+    with open(DataSource) as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter = ',')
+        line_count = 0
+        for row in csv_reader:
+            if line_count == 0:
+                print(f'Column names are {", ".join(row)}')
+                line_count += 1
+            else:
+                print(row)
 
 
     #Process/Clean Dataset
@@ -46,3 +57,8 @@ def main(AnalyticsEngine, DataSource, TargetFields, IncludedFields, ModelKey):
 
 
     #Store Results
+
+
+
+if __name__ == '__main__':
+    main(sys.argv[1])
